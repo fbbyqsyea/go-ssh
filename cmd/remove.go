@@ -31,7 +31,7 @@ var removeCmd = &cobra.Command{
 		}
 
 		// list ssh connect info
-		utils.Info("test ssh connect info:")
+		utils.Info("%s ssh connect info:", name)
 		service.ListName(name, false)
 
 		// confirm remove
