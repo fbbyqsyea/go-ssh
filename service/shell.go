@@ -7,7 +7,7 @@ import (
 
 	"github.com/fbbyqsyea/go-ssh/utils"
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 func Shell(host, user, password string, port int) {
@@ -27,16 +27,16 @@ func Shell(host, user, password string, port int) {
 
 	// store fd state
 	fd := int(os.Stdin.Fd())
-	oldState, err := terminal.MakeRaw(fd)
+	oldState, err := term.MakeRaw(fd)
 	utils.CheckIfError(err)
-	defer terminal.Restore(fd, oldState)
+	defer term.Restore(fd, oldState)
 
 	// bind stdout stderr stdin
 	session.Stdout = os.Stdout
 	session.Stderr = os.Stderr
 	session.Stdin = os.Stdin
 
-	termWidth, termHeight, err := terminal.GetSize(fd)
+	termWidth, termHeight, err := term.GetSize(fd)
 	utils.CheckIfError(err)
 
 	// session modes
